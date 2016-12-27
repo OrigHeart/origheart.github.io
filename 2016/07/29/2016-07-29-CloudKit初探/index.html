@@ -1,0 +1,761 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS能工巧匠集,CloudKit," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是CloudKit
+iCloud
+Documents
+iCloud Drive
+CloudKit
+
+CloudKit 基础对象类型
+CKContainer: Containers 就像应用运行的沙盒一样，一个应用只能访问自己沙盒中的内容而不能访问其他应用的。Containers 就是最外层容器，每个应用有且仅有一个属于自己的 container。
+
+CKDatabase: Database 即">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CloudKit初探">
+<meta property="og:url" content="http://yoursite.com/2016/07/29/2016-07-29-CloudKit初探/index.html">
+<meta property="og:site_name" content="Origheart">
+<meta property="og:description" content="什么是CloudKit
+iCloud
+Documents
+iCloud Drive
+CloudKit
+
+CloudKit 基础对象类型
+CKContainer: Containers 就像应用运行的沙盒一样，一个应用只能访问自己沙盒中的内容而不能访问其他应用的。Containers 就是最外层容器，每个应用有且仅有一个属于自己的 container。
+
+CKDatabase: Database 即">
+<meta property="og:updated_time" content="2016-12-27T09:37:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CloudKit初探">
+<meta name="twitter:description" content="什么是CloudKit
+iCloud
+Documents
+iCloud Drive
+CloudKit
+
+CloudKit 基础对象类型
+CKContainer: Containers 就像应用运行的沙盒一样，一个应用只能访问自己沙盒中的内容而不能访问其他应用的。Containers 就是最外层容器，每个应用有且仅有一个属于自己的 container。
+
+CKDatabase: Database 即">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/29/2016-07-29-CloudKit初探/"/>
+
+
+
+
+
+  <title> CloudKit初探 | Origheart </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c3741904bcbf680d2f12a2fe2936bf2c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Origheart</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Origheart's notes</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/29/2016-07-29-CloudKit初探/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Origheart">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://octodex.github.com/images/dojocat.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Origheart">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Origheart" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CloudKit初探
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-29T00:00:00+08:00">
+                2016-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/07/29/2016-07-29-CloudKit初探/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/29/2016-07-29-CloudKit初探/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="什么是CloudKit"><a href="#什么是CloudKit" class="headerlink" title="什么是CloudKit"></a>什么是CloudKit</h3><ul>
+<li>iCloud</li>
+<li>Documents</li>
+<li>iCloud Drive</li>
+<li>CloudKit</li>
+</ul>
+<h3 id="CloudKit-基础对象类型"><a href="#CloudKit-基础对象类型" class="headerlink" title="CloudKit 基础对象类型"></a>CloudKit 基础对象类型</h3><ul>
+<li><p><code>CKContainer</code>: Containers 就像应用运行的沙盒一样，一个应用只能访问自己沙盒中的内容而不能访问其他应用的。Containers 就是最外层容器，每个应用有且仅有一个属于自己的 container。</p>
+</li>
+<li><p><code>CKDatabase</code>: Database 即数据库，私有数据库用来存储敏感信息，比如说用户的性别年龄等，用户只能访问自己的私有数据库。应用也有一个公开的数据库来存储公共信息，例如你在构建一个基于地理位置的应用，那么地理位置信息就应该存储在公共数据库里以便所有用户都能访问到。</p>
+</li>
+<li><p><code>CKRecord</code>: 即数据库中的一条数据记录。CloudKit 使用 record 通过 key-value 结构来存储结构化数据。关于键值存储，目前值的架构支持 NSString、NSNumber、NSData、NSDate、CLLocation，和 CKReference、CKAsset（这两个下面我们会说明），以及存储以上数据类型的数组。</p>
+</li>
+<li><p><code>CKRecordZone</code>: Record 不是以零散的方式存在于 database 之中的，它们位于 record zones 里。每个应用都有一个 default record zone，你也可以有自定义的 record zone。</p>
+</li>
+<li><p><code>CKRecordIdentifier</code>: 是一条 record 的唯一标识，用于确定该 record 在数据库中的唯一位置。</p>
+</li>
+<li><p><code>CKReference</code>: Reference 一种引用关系。以地理位置签到应用为例，每个地理位置可以包含很多用户在该位置的签到，那么位置与签到之间就形成了这样一种包含式的从属关系。</p>
+</li>
+<li><p><code>CKAsset</code>: 即资源文件，例如二进制文件。还是以签到应用为例，用户签到时可能还包含一张照片，那么这张照片就会以 asset 形式存储起来。</p>
+<a id="more"></a>
+<h3 id="有哪些Api（Diary-Demo）"><a href="#有哪些Api（Diary-Demo）" class="headerlink" title="有哪些Api（Diary Demo）"></a>有哪些Api（Diary Demo）</h3></li>
+</ul>
+<h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">func updateRecord(diary: Diary, record: CKRecord) &#123;</div><div class="line">    </div><div class="line">    record.setObject(diary.content, forKey: &quot;Content&quot;)</div><div class="line">    </div><div class="line">    record.setObject(diary.created_at, forKey: &quot;Created_at&quot;)</div><div class="line">    </div><div class="line">    if let location = diary.location &#123;</div><div class="line">        record.setObject(location, forKey: &quot;Location&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if let title = diary.title &#123;</div><div class="line">        record.setObject(title, forKey: &quot;Title&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    record.setObject(diary.id, forKey: &quot;id&quot;)</div><div class="line">    </div><div class="line">    privateDB.saveRecord(record, completionHandler: &#123; (newDiary, error) -&gt; Void in</div><div class="line">        </div><div class="line">        debugPrint(&quot;Diary Updated&quot;)</div><div class="line">        </div><div class="line">        if let error = error &#123;</div><div class="line">            debugPrint(&quot;error \(error.description)&quot;)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="删"><a href="#删" class="headerlink" title="删"></a>删</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func deleteCloudRecord(record: CKRecord) &#123;</div><div class="line">    privateDB.deleteRecordWithID(record.recordID) &#123; (recordID, error) -&gt; Void in</div><div class="line">        print(&quot;Delete \(recordID?.recordName) \(error?.description)&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="改"><a href="#改" class="headerlink" title="改"></a>改</h4><p>查询 -&gt; 修改 -&gt; 更新</p>
+<h4 id="查"><a href="#查" class="headerlink" title="查"></a>查</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">func fetchCloudRecordWithTitle(title: String , complete: ([CKRecord]?) -&gt; Void) &#123;</div><div class="line">    </div><div class="line">    let predicate = NSPredicate(format: &quot;Title == %@&quot;, title)</div><div class="line">    </div><div class="line">    let query = CKQuery(recordType: &quot;Diary&quot;,</div><div class="line">                        predicate: predicate )</div><div class="line">    </div><div class="line">    privateDB.performQuery(query, inZoneWithID: nil) &#123;</div><div class="line">        results, error in</div><div class="line">        if let results = results &#123;</div><div class="line">            complete(results)</div><div class="line">        &#125; else &#123;</div><div class="line">            complete(nil)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="碰到的问题-踩到的坑"><a href="#碰到的问题-踩到的坑" class="headerlink" title="碰到的问题(踩到的坑)"></a>碰到的问题(踩到的坑)</h3><ol>
+<li><code>Saving CloudKit Record “Not Authenticated” (9/1002)“ ”This request requires an authenticated account</code><br>原因：使用模拟器或者设备没有启用iCloud</li>
+<li><code>Couldn&#39;t get container configuration from the server for container</code><br>原因：container’s identifier错误，可能是使用默认值，也可能是与代码里初始化container时的identifier不一致；<br>另外，需要与开发者中心<code>Certificates, Identifiers &amp; Profiles</code>的iCloud Containers保持一致。<strong>需要5分钟左右才可以使用</strong></li>
+<li><code>Invalid Arguments(12/2015); server message = Field &#39;___recordID&#39; is not marked queryable</code><br>原因：未设置<code>Metadata Indexes</code>.需要前往CloudKit Dashboard -&gt; Record Types -&gt; Metedata Indexes设置</li>
+</ol>
+<h3 id="收费"><a href="#收费" class="headerlink" title="收费"></a>收费</h3><p>等不及要试试 CloudKit 了？它能让你从编写服务端代码、监控服务器压力、长期维护大量的 CDN、租用服务器等等等等的事情中解脱出来。等等！CloudKit 怎么收费呢，会很贵吗？答案是：免费。目前苹果允许你使用 CloudKit 存储 10 GB 资源，100 M 数据库存储，每天 2 GB 流量；当你的用户数量增加的时候，这些免费额度也相应地增加到 1 PB 存储、10 TB 数据库存储，以及每天 200 TB 流量。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloudKitQuickStart/EnablingiCloudandConfiguringCloudKit/EnablingiCloudandConfiguringCloudKit.html#//apple_ref/doc/uid/TP40014987-CH2-SW1" target="_blank" rel="external">官方文档</a><br><a href="https://icloud.developer.apple.com/dashboard" target="_blank" rel="external">iCloud Dashboard</a><br><a href="http://nshipster.cn/cloudkit/" target="_blank" rel="external">NSHipster</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS能工巧匠集/" rel="tag"># iOS能工巧匠集</a>
+          
+            <a href="/tags/CloudKit/" rel="tag"># CloudKit</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/17/2016-06-17-谓词/" rel="next" title="谓词">
+                <i class="fa fa-chevron-left"></i> 谓词
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/29/2016-07-29-CloudKit初探/"
+           data-title="CloudKit初探" data-url="http://yoursite.com/2016/07/29/2016-07-29-CloudKit初探/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://octodex.github.com/images/dojocat.jpg"
+               alt="Origheart" />
+          <p class="site-author-name" itemprop="name">Origheart</p>
+          <p class="site-description motion-element" itemprop="description">用最初的心，做永远的事</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/origheart" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lk972105" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/origheart" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是CloudKit"><span class="nav-number">1.</span> <span class="nav-text">什么是CloudKit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CloudKit-基础对象类型"><span class="nav-number">2.</span> <span class="nav-text">CloudKit 基础对象类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有哪些Api（Diary-Demo）"><span class="nav-number">3.</span> <span class="nav-text">有哪些Api（Diary Demo）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增"><span class="nav-number">3.1.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删"><span class="nav-number">3.2.</span> <span class="nav-text">删</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改"><span class="nav-number">3.3.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查"><span class="nav-number">3.4.</span> <span class="nav-text">查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#碰到的问题-踩到的坑"><span class="nav-number">4.</span> <span class="nav-text">碰到的问题(踩到的坑)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收费"><span class="nav-number">5.</span> <span class="nav-text">收费</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Origheart</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"origheart"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
