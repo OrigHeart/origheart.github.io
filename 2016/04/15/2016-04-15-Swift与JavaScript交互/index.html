@@ -84,43 +84,43 @@
 
 
 
-<meta name="description" content="###概述iOS原生应用和web页面的交互大致上有这几种方法：
+<meta name="description" content="概述iOS原生应用和web页面的交互大致上有这几种方法：
 
 iOS7之后的JavaScriptCore
 拦截协议
 第三方框架WebViewJavaScriptBridge : 是基于拦截协议进行的封装，学习成本相对JavaScriptCore较高
 iOS8之后的WKWebView : iOS8之后推出的，还没有成为主流使用。
 
-###关于JavaScriptCore涉及到的几种类型：
+关于JavaScriptCore涉及到的几种类型：
 
-JS">
+JSContex">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift与JavaScript交互">
 <meta property="og:url" content="http://yoursite.com/2016/04/15/2016-04-15-Swift与JavaScript交互/index.html">
 <meta property="og:site_name" content="Origheart">
-<meta property="og:description" content="###概述iOS原生应用和web页面的交互大致上有这几种方法：
+<meta property="og:description" content="概述iOS原生应用和web页面的交互大致上有这几种方法：
 
 iOS7之后的JavaScriptCore
 拦截协议
 第三方框架WebViewJavaScriptBridge : 是基于拦截协议进行的封装，学习成本相对JavaScriptCore较高
 iOS8之后的WKWebView : iOS8之后推出的，还没有成为主流使用。
 
-###关于JavaScriptCore涉及到的几种类型：
+关于JavaScriptCore涉及到的几种类型：
 
-JS">
-<meta property="og:updated_time" content="2016-12-27T08:59:15.000Z">
+JSContex">
+<meta property="og:updated_time" content="2016-12-27T09:02:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift与JavaScript交互">
-<meta name="twitter:description" content="###概述iOS原生应用和web页面的交互大致上有这几种方法：
+<meta name="twitter:description" content="概述iOS原生应用和web页面的交互大致上有这几种方法：
 
 iOS7之后的JavaScriptCore
 拦截协议
 第三方框架WebViewJavaScriptBridge : 是基于拦截协议进行的封装，学习成本相对JavaScriptCore较高
 iOS8之后的WKWebView : iOS8之后推出的，还没有成为主流使用。
 
-###关于JavaScriptCore涉及到的几种类型：
+关于JavaScriptCore涉及到的几种类型：
 
-JS">
+JSContex">
 
 
 
@@ -362,26 +362,27 @@ JS">
       
 
       
-        <p>###概述<br>iOS原生应用和web页面的交互大致上有这几种方法：</p>
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>iOS原生应用和web页面的交互大致上有这几种方法：</p>
 <ul>
 <li>iOS7之后的<code>JavaScriptCore</code></li>
 <li><code>拦截协议</code></li>
 <li>第三方框架<code>WebViewJavaScriptBridge</code> : 是基于拦截协议进行的封装，学习成本相对JavaScriptCore较高</li>
 <li>iOS8之后的<code>WKWebView</code> : iOS8之后推出的，还没有成为主流使用。</li>
 </ul>
-<p>###关于JavaScriptCore<br>涉及到的几种类型：</p>
+<h3 id="关于JavaScriptCore"><a href="#关于JavaScriptCore" class="headerlink" title="关于JavaScriptCore"></a>关于JavaScriptCore</h3><p>涉及到的几种类型：</p>
 <ul>
 <li>JSContext:  JSContext是代表JS的执行环境，通过-evaluateScript:方法就可以执行JS代码</li>
 <li>JSValue: JSValue封装了JS与ObjC中的对应的类型，以及调用JS的API等</li>
 <li>JSExport:  JSExport是一个协议，遵守此协议，就可以定义我们自己的协议，在协议中声明的API都会在JS中暴露出来，才能调用</li>
 </ul>
-<p>###Swift与JS交互方式<br>两种调用JS代码的方法：</p>
+<a id="more"></a>
+<h3 id="Swift与JS交互方式"><a href="#Swift与JS交互方式" class="headerlink" title="Swift与JS交互方式"></a>Swift与JS交互方式</h3><p>两种调用JS代码的方法：</p>
 <p>1、直接调用JS代码</p>
 <p>2、在Swift中通过JSContext注入模型，然后调用模型的方法</p>
-<p>####直接调用JS代码<br>我们可以不通过模型来调用方法，也可以直接调用方法</p>
+<h4 id="直接调用JS代码"><a href="#直接调用JS代码" class="headerlink" title="直接调用JS代码"></a>直接调用JS代码</h4><p>我们可以不通过模型来调用方法，也可以直接调用方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 直接JS方法</div><div class="line">let context = JSContext()</div><div class="line">context.evaluateScript(&quot;var num = 8&quot;)</div><div class="line">context.evaluateScript(&quot;function double(value) &#123;return value * 2&#125;&quot;)</div><div class="line">// 调用并打印结果</div><div class="line">let result = context.evaluateScript(&quot;double(num)&quot;)</div><div class="line">print(&quot;result = \(result)&quot;)</div><div class="line">// 可通过下标来获取JS方法</div><div class="line">let doubleFunc = context.objectForKeyedSubscript(&quot;double&quot;)</div><div class="line">let double10Result = doubleFunc.callWithArguments([&quot;10&quot;])</div><div class="line">print(&quot;doubleFunc(10), result = \(double10Result.toString())&quot;)</div></pre></td></tr></table></figure>
 <p>这种方式是没有注入模型到JS中的。这种方式使用起来不太合适，通常在JS中有很多全局的函数，为了防止名字重名，使用模型的方式是最好不过了。通过我们协商好的模型名称，在JS中直接通过模型来调用我们在Swift中所定义的模型所公开的API。<br>注入模型的交互</p>
-<p>####注入模型的交互<br>首先，我们需要先定义一个协议，而且这个协议必须要遵守JSExport协议。</p>
+<h4 id="注入模型的交互"><a href="#注入模型的交互" class="headerlink" title="注入模型的交互"></a>注入模型的交互</h4><p>首先，我们需要先定义一个协议，而且这个协议必须要遵守JSExport协议。</p>
 <p>All methods that should apply in Javascript,should be in the following protocol.</p>
 <p>注意，这里必须使用<code>@objc</code>，因为JavaScriptCore库是ObjectiveC版本的。如果不加<code>@objc</code>，则调用无效果。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">objc protocol JavaScriptSwiftDelegate: JSExport &#123;</div><div class="line">  func callSystemCamera();</div><div class="line">  func showAlert(title: String, msg: String);</div><div class="line">  func callWithDict(dict: [String: AnyObject])</div><div class="line">  func jsCallObjcAndObjcCallJsWithDict(dict: [String: AnyObject]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -397,6 +398,7 @@ JS">
 <p>这样就可以在JS调用Siwft方法时，也让Swift反馈给JS。<br>注意：这里是通过objectForKeyedSubscript方法来获取变量jsFunc。<br>方法也是变量。看看下面传字典参数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func jsCallObjcAndObjcCallJsWithDict(dict: [String : AnyObject]) &#123;</div><div class="line">    print(&quot;js call objc method: jsCallObjcAndObjcCallJsWithDict, args: %@&quot;, dict)</div><div class="line">    </div><div class="line">    let jsParamFunc = self.jsContext?.objectForKeyedSubscript(&quot;jsParamFunc&quot;);</div><div class="line">    let dict = NSDictionary(dictionary: [&quot;age&quot;: 18, &quot;height&quot;: 168, &quot;name&quot;: &quot;lili&quot;])</div><div class="line">    jsParamFunc?.callWithArguments([dict])</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
 <p>获取HTML中定义的jsParamFunc方法，然后调用它并传了一个字典作为参数。</p>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p><a href="https://github.com/Origheart/JSAndSwift" target="_blank" rel="external">https://github.com/Origheart/JSAndSwift</a></p>
 
       
     </div>
@@ -490,8 +492,17 @@ JS">
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://octodex.github.com/images/dojocat.jpg"
@@ -569,6 +580,22 @@ JS">
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于JavaScriptCore"><span class="nav-number">2.</span> <span class="nav-text">关于JavaScriptCore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift与JS交互方式"><span class="nav-number">3.</span> <span class="nav-text">Swift与JS交互方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接调用JS代码"><span class="nav-number">3.1.</span> <span class="nav-text">直接调用JS代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注入模型的交互"><span class="nav-number">3.2.</span> <span class="nav-text">注入模型的交互</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo"><span class="nav-number">3.3.</span> <span class="nav-text">Demo</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
