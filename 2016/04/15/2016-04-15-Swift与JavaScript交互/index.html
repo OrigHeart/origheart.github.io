@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="iOS能工巧匠集,Native与HTML 5交互," />
 
 
 
@@ -84,15 +84,43 @@
 
 
 
-<meta name="description" content="用最初的心，做永远的事">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Origheart">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="###概述iOS原生应用和web页面的交互大致上有这几种方法：
+
+iOS7之后的JavaScriptCore
+拦截协议
+第三方框架WebViewJavaScriptBridge : 是基于拦截协议进行的封装，学习成本相对JavaScriptCore较高
+iOS8之后的WKWebView : iOS8之后推出的，还没有成为主流使用。
+
+###关于JavaScriptCore涉及到的几种类型：
+
+JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift与JavaScript交互">
+<meta property="og:url" content="http://yoursite.com/2016/04/15/2016-04-15-Swift与JavaScript交互/index.html">
 <meta property="og:site_name" content="Origheart">
-<meta property="og:description" content="用最初的心，做永远的事">
+<meta property="og:description" content="###概述iOS原生应用和web页面的交互大致上有这几种方法：
+
+iOS7之后的JavaScriptCore
+拦截协议
+第三方框架WebViewJavaScriptBridge : 是基于拦截协议进行的封装，学习成本相对JavaScriptCore较高
+iOS8之后的WKWebView : iOS8之后推出的，还没有成为主流使用。
+
+###关于JavaScriptCore涉及到的几种类型：
+
+JS">
+<meta property="og:updated_time" content="2016-12-27T08:59:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Origheart">
-<meta name="twitter:description" content="用最初的心，做永远的事">
+<meta name="twitter:title" content="Swift与JavaScript交互">
+<meta name="twitter:description" content="###概述iOS原生应用和web页面的交互大致上有这几种方法：
+
+iOS7之后的JavaScriptCore
+拦截协议
+第三方框架WebViewJavaScriptBridge : 是基于拦截协议进行的封装，学习成本相对JavaScriptCore较高
+iOS8之后的WKWebView : iOS8之后推出的，还没有成为主流使用。
+
+###关于JavaScriptCore涉及到的几种类型：
+
+JS">
 
 
 
@@ -120,13 +148,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/04/15/2016-04-15-Swift与JavaScript交互/"/>
 
 
 
 
 
-  <title> Origheart </title>
+  <title> Swift与JavaScript交互 | Origheart </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -157,9 +185,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -240,9 +266,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -275,10 +301,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/04/15/2016-04-15-Swift与JavaScript交互/" itemprop="url">
-                  Swift与JavaScript交互
-                </a>
+                Swift与JavaScript交互
               
             
           </h1>
@@ -339,9 +362,7 @@
       
 
       
-        
-          
-            <p>###概述<br>iOS原生应用和web页面的交互大致上有这几种方法：</p>
+        <p>###概述<br>iOS原生应用和web页面的交互大致上有这几种方法：</p>
 <ul>
 <li>iOS7之后的<code>JavaScriptCore</code></li>
 <li><code>拦截协议</code></li>
@@ -377,591 +398,64 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func jsCallObjcAndObjcCallJsWithDict(dict: [String : AnyObject]) &#123;</div><div class="line">    print(&quot;js call objc method: jsCallObjcAndObjcCallJsWithDict, args: %@&quot;, dict)</div><div class="line">    </div><div class="line">    let jsParamFunc = self.jsContext?.objectForKeyedSubscript(&quot;jsParamFunc&quot;);</div><div class="line">    let dict = NSDictionary(dictionary: [&quot;age&quot;: 18, &quot;height&quot;: 168, &quot;name&quot;: &quot;lili&quot;])</div><div class="line">    jsParamFunc?.callWithArguments([dict])</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
 <p>获取HTML中定义的jsParamFunc方法，然后调用它并传了一个字典作为参数。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/05/10/2015-05-10-ios-skills/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Origheart">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://octodex.github.com/images/dojocat.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Origheart">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Origheart" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/05/10/2015-05-10-ios-skills/" itemprop="url">
-                  iOS常用小技巧（经常更新）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-10T00:00:00+08:00">
-                2015-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/iOS能工巧匠集/" rel="tag"># iOS能工巧匠集</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/05/10/2015-05-10-ios-skills/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/10/2015-05-10-ios-skills/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
+            <a href="/tags/Native与HTML-5交互/" rel="tag"># Native与HTML 5交互</a>
           
-
-          
-
-          
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h3 id="循环效果"><a href="#循环效果" class="headerlink" title="循环效果:"></a>循环效果:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">self.count++;</div><div class="line">self.count %= <span class="number">4</span>;</div></pre></td></tr></table></figure>
-<p>可以实现0～4的循环效果，替换了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(self.count==<span class="number">4</span>) self.count = <span class="number">0</span>;</div></pre></td></tr></table></figure>
-<h3 id="计算动画当前移动的值：（相似三角形）"><a href="#计算动画当前移动的值：（相似三角形）" class="headerlink" title="计算动画当前移动的值：（相似三角形）"></a>计算动画当前移动的值：（相似三角形）</h3><p>开始值 + 当前帧数 <em> (结束值 - 开始值) / (帧频 </em> 动画时长)</p>
-<h3 id="iOS7下不让view渗透到NavigationBar或TabBar的下面："><a href="#iOS7下不让view渗透到NavigationBar或TabBar的下面：" class="headerlink" title="iOS7下不让view渗透到NavigationBar或TabBar的下面："></a>iOS7下不让view渗透到NavigationBar或TabBar的下面：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ([self respondsToSelector:<span class="meta">@selector</span>(edgesForExtendedLayout)]) &#123;</div><div class="line">        self.edgesForExtendedLayout = UIRectEdgeNone;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/10/2015-05-10-ios-skills/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/10/2015-05-10-ios-skills/" rel="next" title="iOS常用小技巧（经常更新）">
+                <i class="fa fa-chevron-left"></i> iOS常用小技巧（经常更新）
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/04/12/2015-04-12-ios-app-crash-log/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Origheart">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://octodex.github.com/images/dojocat.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Origheart">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Origheart" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/12/2015-04-12-ios-app-crash-log/" itemprop="url">
-                  iOS捕获app crash日志的Api
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-12T00:00:00+08:00">
-                2015-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/04/12/2015-04-12-ios-app-crash-log/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/12/2015-04-12-ios-app-crash-log/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>定义uncaughtExceptionHandler方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">uncaughtExceptionHandler</span><span class="params">( NSException   *exception)</span> </span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 异常的堆栈信息</span></div><div class="line">    NSArray *stackArray = [exception callStackSymbols];</div><div class="line">    <span class="comment">// 出现异常的原因</span></div><div class="line">    NSString *reason = [exception reason];</div><div class="line">    <span class="comment">// 异常名称</span></div><div class="line">    NSString *name = [exception name];</div><div class="line">    NSString *exceptionInfo = [NSString stringWithFormat:@<span class="string">"Exception reason：%@\nException name：%@\nException stack：%@"</span>,name, reason, stackArray];</div><div class="line">    NSLog(@<span class="string">"%@"</span>, exceptionInfo);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>调用方法的时机:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions</div><div class="line">&#123;</div><div class="line">   <span class="comment">// 设置处理异常的Handler</span></div><div class="line">    NSSetUncaughtExceptionHandler(&amp;uncaughtExceptionHandler);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/04/12/2015-04-11-improve-efficiency/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Origheart">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://octodex.github.com/images/dojocat.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Origheart">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Origheart" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/12/2015-04-11-improve-efficiency/" itemprop="url">
-                  那些一般人不会告诉你的提升做事效率的方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-12T00:00:00+08:00">
-                2015-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/04/12/2015-04-11-improve-efficiency/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/12/2015-04-11-improve-efficiency/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>工作以来，就喜欢琢磨一些提升自己做事效率的方法，积累了一段时间，也看了很多相关的书籍与文章后，感到有了很大的收获，分享给各位，希望对大家有所帮助。</p>
-<p><strong>1、躺在床上的时候，不要玩手机。</strong>大学的时候喜欢在床上玩手机，结果经常会不知不觉玩到很晚，第二天经常会因为睡眠不足而精力不足。现在，躺在床上的时候就把手机放在一旁，睡眠效率提升很多。</p>
-<p><strong>2、永远不要在起床的时候看邮件，也永远不要在睡前看邮件。</strong>对我来说，我一般一天只在 3 个时间点去处理邮件，中午 11 点，下午 2 点，下午 6 点。此外，极其重要的一点是，<code>你的邮箱的收件箱不应该是一个未完成事件列表，你应该要做到及时清空，如果是该做的任务（那就加入待办事项），如果是重要的文件（那就转存 Evernote 中或者存档），如果是无用文件（那就应该马上删除），千万不能把自己的邮箱弄的一团糟。</code></p>
-<p><strong>3、2 分钟法则：如果一件事情，在 2 分钟内可以处理完，那么就马上着手解决它。</strong>因为很多这样的事情，甚至没必要排到待做事项当中，越早解决，越节省时间。</p>
-<p><strong>4、5 分钟法则：治疗拖延症的最好方法，不是去设立各种各样的任务，也不是去下载各种各样的时间管理软件，而是告诉自己开始去尝试做个 5 分钟试试看就可以了。</strong>当你坐下来做个 5 分钟，你会发现你自己不知不觉就做下去了，很多事情没你想象的那么困难。所以，如果，你有什么一直想做却一直没做的事情的话，就坐下来做个 5 分钟试试看吧。</p>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/12/2015-04-11-improve-efficiency/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/04/10/2015-04-11-hello-world/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Origheart">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://octodex.github.com/images/dojocat.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Origheart">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Origheart" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/10/2015-04-11-hello-world/" itemprop="url">
-                  Hello world
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-10T00:00:00+08:00">
-                2015-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/04/10/2015-04-11-hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/10/2015-04-11-hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(&quot;Hello world!&quot;)</div></pre></td></tr></table></figure>
-<p>&gt;</p>
-<blockquote>
-<p>前前后后折腾了2天时间，终于把自己的blog建起来了。这几天研究过<code>GitHub Pages</code>，<code>Coding.net</code>，<code>Hugo</code>，<code>Huxo</code>以及<code>FarBox</code>。最终此站点是通过<code>Hexo</code>创建，并在GithHub Pages上部署的。从创建到购买域名，到部署，到上线，其中有一些曲折的过程，最开始不知道如何着手，我去学习<code>Python</code>，通过Python创建Web App的方式创建了一个简易的博客，但是并不美观，且很多功能做的并不是很好。最终还是选择了<code>Hexo</code>。</p>
-<p>博客还有很多不完整以及很多细节不够好的地方，以后我会慢慢调整慢慢学习。</p>
-</blockquote>
-<h2 id="我将在这里做什么"><a href="#我将在这里做什么" class="headerlink" title="我将在这里做什么"></a>我将在这里做什么</h2><blockquote>
-<ul>
-<li><p>分享自己的一些编程经验，并与大家交流</p>
-</li>
-<li><p>无聊时在这儿打发时间，记录自己生活中的那些开心与不开心的事儿</p>
-</li>
-<li><p>介绍自己做过的一些项目</p>
-</li>
-<li><p>收集iOS开发的技术文摘</p>
-</li>
-<li><p>记录自己的学习和成长过程</p>
-</li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -969,6 +463,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/15/2016-04-15-Swift与JavaScript交互/"
+           data-title="Swift与JavaScript交互" data-url="http://yoursite.com/2016/04/15/2016-04-15-Swift与JavaScript交互/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -1172,6 +674,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
